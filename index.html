@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07131f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="VORTEX">
+  <meta name="description" content="VORTEX offline media library">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>VORTEX — Offline Media</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="mark">V</div><div><div class="brand-name">VORTEX</div><div class="brand-sub">OFFLINE MEDIA</div></div></div>
+    <span id="networkStatus" class="status">Checking connection…</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">YOUR PERSONAL MEDIA SPACE</p>
+      <h1>Keep what matters.<br><span>Play it offline.</span></h1>
+      <p class="hero-copy">Import media you own or are authorized to save. Your library stays on this device.</p>
+      <div class="hero-actions">
+        <button class="primary" id="importButton">＋ Import media</button>
+        <button class="secondary" id="urlButton">Add media URL</button>
+        <input id="fileInput" type="file" accept="video/*,audio/*" multiple hidden>
+      </div>
+      <div class="notice">YouTube videos can be watched through YouTube's official player while online. This app does not extract or download YouTube streams.</div>
+    </section>
+
+    <nav class="tabs" aria-label="Main navigation">
+      <button class="tab active" data-tab="library">Library</button>
+      <button class="tab" data-tab="add">Add media</button>
+      <button class="tab" data-tab="about">About</button>
+    </nav>
+
+    <section id="libraryPanel" class="panel">
+      <div class="section-heading"><div><p class="eyebrow">ON THIS IPHONE</p><h2>Your library</h2></div><span id="itemCount" class="count">0 ITEMS</span></div>
+      <div id="storageBarWrap" class="storage-wrap"><div class="storage-label"><span>App storage estimate</span><span id="storageLabel">0 MB</span></div><div class="storage-track"><div id="storageBar"></div></div></div>
+      <div id="emptyState" class="empty"><div class="empty-icon">▣</div><h3>Your library is empty</h3><p>Import a video or audio file from Files to start your offline collection.</p><button class="secondary" id="emptyImport">Import your first file</button></div>
+      <div id="mediaList" class="media-list"></div>
+    </section>
+
+    <section id="addPanel" class="panel hidden">
+      <p class="eyebrow">ADD TO YOUR COLLECTION</p><h2>Add media</h2>
+      <div class="card">
+        <h3>Import from iPhone</h3>
+        <p>Choose video or audio files from the Files app. The app stores a copy in its local browser database for offline playback.</p>
+        <button class="primary full" id="importButton2">Choose files</button>
+      </div>
+      <div class="card">
+        <h3>Download an authorized media URL</h3>
+        <p>Works when the server permits browser access (CORS) and the URL points directly to a downloadable audio/video file.</p>
+        <label for="mediaTitle">Title (optional)</label><input id="mediaTitle" placeholder="My video">
+        <label for="mediaUrl">Direct media URL</label><input id="mediaUrl" type="url" inputmode="url" placeholder="https://example.com/video.mp4">
+        <button class="primary full" id="downloadUrlButton">Download to library</button>
+        <p id="urlMessage" class="message" role="status"></p>
+      </div>
+      <div class="card">
+        <h3>Open YouTube</h3>
+        <p>Open YouTube's official site or app for online playback and its supported offline features.</p>
+        <a class="link-button" href="https://www.youtube.com/" target="_blank" rel="noopener">Open YouTube ↗</a>
+      </div>
+    </section>
+
+    <section id="aboutPanel" class="panel hidden">
+      <p class="eyebrow">VORTEX 1.0</p><h2>Made for your media.</h2>
+      <div class="card"><h3>Offline by design</h3><p>Once a file has been imported successfully, VORTEX can play it without an internet connection, as long as browser storage remains available.</p></div>
+      <div class="card"><h3>Storage and privacy</h3><p>Media is stored locally in this browser's IndexedDB. Clearing Safari website data, deleting the web app's data, or uninstalling it may remove your library. Keep a separate backup of important files.</p></div>
+      <div class="card"><h3>Important limitations</h3><ul><li>Large files may exceed iOS browser storage limits.</li><li>Direct URL downloads require a server that allows cross-origin requests.</li><li>Background downloads are not guaranteed when Safari is closed or suspended.</li><li>YouTube watch-page links are not direct media URLs.</li></ul></div>
+      <div class="card"><h3>Install on Home Screen</h3><p>In Safari, tap Share, choose <b>Add to Home Screen</b>, then tap Add. Open VORTEX from the new Home Screen icon.</p></div>
+    </section>
+  </main>
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <dialog id="playerDialog"><div class="player-head"><strong id="playerTitle">Playing</strong><button id="closePlayer" aria-label="Close">✕</button></div><video id="player" controls playsinline></video></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
